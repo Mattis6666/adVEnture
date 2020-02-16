@@ -1,0 +1,17 @@
+// const functions = require('../../utility/functions.js');
+// const config = require('config');
+module.exports = {
+    name: '',
+    description: '',
+    extended: '',
+    usage: '',
+    aliases: [],
+    guildonly: false,
+    developersOnly: false,
+    args: false,
+    category: 'Utility',
+    memberPermission: '',
+    botPermission: '',
+    execute(message, args) {
+    }
+};

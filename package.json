@@ -1,0 +1,21 @@
+{
+  "name": "adventure-bot",
+  "version": "1.0.0",
+  "description": "Remake of Practice-Bot. Should be way better and cleaner.",
+  "main": "index.js",
+  "scripts": {
+    "start": "export NODE_ENV=production && node index.js",
+    "dev": "export NODE_ENV=development && node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "VenNeptury",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.2.5",
+    "discord.js": "^11.5.1",
+    "discord.js-minesweeper": "^1.0.5",
+    "eslint": "^6.8.0",
+    "fs": "^0.0.1-security",
+    "nekos.life": "^2.0.5"
+  }
+}

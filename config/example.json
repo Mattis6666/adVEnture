@@ -1,0 +1,16 @@
+{
+  "token": "",
+  "prefix": "",
+  "developers": [""],
+  "errorChannel": "",
+  "modLogChannel": "",
+  "imageStorage": "",
+  "blockedChannels": [""],
+  "bannedWords": [""],
+  "reactionRoles": {
+    "messageID": {
+      "role": "roleID",
+      "channel": "channelID"
+    }
+  }
+}
