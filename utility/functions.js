@@ -27,7 +27,7 @@ module.exports = {
         const memberInput = args[spot];
         let member = message.guild.members.get(memberInput);
         if (!member) member = message.guild.members.get(memberInput.substring(3, memberInput.length - 1));
-        if (!member) member = message.guild.members.find(member => member.user.username.substring(0, memberInput.length).toLowerCase() === memberInput.toLowerCase());
+        if (!member) member = message.guild.members.some(member => member.user.username.substring(0, memberInput.length).toLowerCase() === memberInput.toLowerCase()) ? 'reactions' : false;
         return member ? member : false;
     },
     noMember(message) {
