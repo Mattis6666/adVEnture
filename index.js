@@ -79,11 +79,11 @@ client.on('message', message => {
 client.on('messageReactionAdd', (reaction, user) => {
     const messageID = reaction.message.id;
     if (!Object.keys(config.reactionRoles).includes(messageID))
-        return console.log('Not in.');
+        return;
     if (user !== client.user)
         reaction.remove(user);
     const role = reaction.message.guild.roles.get(config.reactionRoles[messageID].role);
-    if (!role) return console.log('Not role.');
+    if (!role) return;
     const member = reaction.message.guild.members.get(user.id);
     if (member.roles.has(role.id)) {
         member.removeRole(role);
