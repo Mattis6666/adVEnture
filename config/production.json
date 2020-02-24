@@ -1,5 +1,6 @@
 {
   "token": "heroku",
+  "mongoString": "heroku",
   "prefix": "!",
   "developers": ["265560538937819137"],
   "errorChannel": "678610330909278211",

@@ -79,5 +79,8 @@ module.exports = {
             ]
         });
         return msg.attachments.first().url;
+    },
+    modLog(message, log) {
+        message.client.channels.get(config.modLogChannel).send(log);
     }
 };

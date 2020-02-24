@@ -100,7 +100,7 @@ module.exports = {
         .setTitle(media.title.romaji)
         .setThumbnail(media.coverImage.extraLarge)
         .setImage(media.bannerImage)
-        .setDescription(`${media.description.replace(/<br>/gi, '')}\n[More Info can be found here!](${media.siteUrl})`)
+        .setDescription(`${media.description.replace(/<[^>]*>/gi, '')}\n[More Info can be found here!](${media.siteUrl})`)
         .addField('Other Names', media.synonyms.length ? `${media.title.english}\n${media.title.native}\n${media.synonyms.join('\n')}` : `${media.title.english} / ${media.title.native}`)
         .addField('Genres', media.genres.join(', '))
         .addField('Status', media.status, true)
