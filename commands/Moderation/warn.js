@@ -33,11 +33,11 @@ module.exports = {
             .setThumbnail(member.user.displayAvatarUrl)
             .setFooter(count ? `They now have ${count + 1} warns.` : 'This is their first warn.');
         await message.channel.send(output);
+        functions.modLog(message, output);
         member.send(output.setDescription(`You have been warned on ${message.guild.name}.`).setFooter(`You now have ${count + 1} warns.`))
             .catch(() => {
                 return;
             });
-        functions.modLog(message, output);
 
         if (count >= 3) {
             const msg = await message.channel.send('This user has 3 or more warns. Ban?');
