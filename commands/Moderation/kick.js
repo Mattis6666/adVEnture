@@ -14,8 +14,6 @@ module.exports = {
     botPermission: 'KICK_MEMBERS',
     async execute(message, args) {
         function kick(member) {
-            if (member === 'reactions')
-                return functions.errorMessage(message, 'I closed the menu as 5 minutes passed. Please run the command again.');
             if (!functions.isMemberHigher(message.member, member))
                 return functions.errorMessage(message, 'You can\'t kick this user, because your highest role is not higher than theirs.');
             if (!functions.isMemberHigher(message.guild.me, member))
