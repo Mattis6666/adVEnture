@@ -94,7 +94,7 @@ module.exports = {
         });
         collector.on('end', () => {
             msg.delete();
-            if (!member)
+            if (!member || member === 'reactions')
                 return;
             ban(member);
         });
