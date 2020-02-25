@@ -15,6 +15,7 @@ module.exports = {
     getRole(message, args, spot) {
         const roleInput = args[spot];
         let role = message.guild.roles.get(roleInput);
+        if (!role) role = message.mentions.roles.first();
         if (!role) role = message.guild.roles.get(roleInput.substring(3, roleInput.length - 1));
         if (!role) role = message.guild.roles.find(role => role.name.substring(0, roleInput.length).toLowerCase() === roleInput.toLowerCase());
         return role ? role : false;

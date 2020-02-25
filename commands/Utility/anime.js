@@ -26,6 +26,7 @@ query ($id: Int, $page: Int, $perPage: Int, $search: String) {
       }
       description
       episodes
+      chapters
       status
       startDate {
         year
@@ -96,17 +97,22 @@ module.exports = {
         return functions.errorMessage(message, "Sorry, I wasn't able to find an anime matching your Search Term.");
       if (media.isAdult)
         return functions.errorMessage(message, "Sorry, this Anime can't be displayed, because it's NSFW!");
+
+      const names = media.synonyms;
+      if (media.title.english !== 'null' && media.title.english) names.push(media.title.english);
+      if (media.title.native !== 'null' && media.title.native) names.push(media.title.native);
+
       const output = functions.newEmbed()
         .setTitle(media.title.romaji)
         .setThumbnail(media.coverImage.extraLarge)
         .setImage(media.bannerImage)
         .setDescription(`${media.description.replace(/<[^>]*>/gi, '')}\n[More Info can be found here!](${media.siteUrl})`)
-        .addField('Other Names', media.synonyms.length ? `${media.title.english}\n${media.title.native}\n${media.synonyms.join('\n')}` : `${media.title.english} / ${media.title.native}`)
-        .addField('Genres', media.genres.join(', '))
-        .addField('Status', media.status, true)
-        .addField('Average Rating', media.averageScore + '%', true)
-        .addField('Format', media.format, true)
-        .addField('Episodes', media.episodes ? media.episodes : '-', true)
+        .addField('Other Names', names.length ? names.join('\n') : '-')
+        .addField('Genres', media.genres.join(', ') || '-')
+        .addField('Status', media.status || '-', true)
+        .addField('Average Rating', media.averageScore ? media.averageScore + '%' : '-', true)
+        .addField('Format', media.format || '-', true)
+        .addField('Episodes/Chapters', media.episodes || media.chapters || '-', true)
         .addField('Started on', `${handleMonths(media.startDate.month)} ${media.startDate.day} ${media.startDate.year}`, true)
         .addField('Finished on', media.endDate.month ? `${handleMonths(media.endDate.month)} ${media.endDate.day} ${media.endDate.year}` : '-', true);
       message.channel.send(output);

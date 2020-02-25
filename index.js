@@ -108,3 +108,5 @@ if (config.token === 'heroku')
     client.login(process.env.BOT_TOKEN);
 else
     client.login(config.token);
+
+module.exports = sfw;
