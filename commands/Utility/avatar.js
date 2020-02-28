@@ -14,7 +14,7 @@ module.exports = {
 
         if (args[0]) {
             const member = functions.getMember(message, args, 0);
-            if (!member) return functions.noMember(message);
+            if (!member || member === 'reactions') return functions.noMember(message);
 
             let username = member.user.username;
             if (!username.endsWith('s') && !username.endsWith('z') && !username.endsWith('S') && !username.endsWith('Z')) username += '\'s'; else username += '\'';

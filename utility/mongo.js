@@ -35,7 +35,14 @@ userSchema.statics.getUser = async function (userID) {
 };
 userSchema.statics.createWarn = async function (userID, reason, mod, modTag, date) {
     const userEntry = await this.findOne({ userID: userID }) || await this.create({ userID: userID });
-    await userEntry.warns.push({ reason: reason, moderator: mod, moderatorTag: modTag, date: date });
+    await userEntry.warns.push(
+        {
+            reason: reason,
+            moderator: mod,
+            moderatorTag: modTag,
+            date: date
+        }
+    );
     userEntry.save();
 };
 
