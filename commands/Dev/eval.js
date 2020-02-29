@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 module.exports = {
     name: 'eval',
-    description: 'Runs code provided by dev.',
+    description: 'Runs code. Dev only.',
     usage: '',
     aliases: ['debug', 'code'],
     guildonly: false,
