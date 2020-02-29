@@ -22,7 +22,7 @@
     "no-unused-vars": "error",
     "no-use-before-define": "error",
     "array-bracket-newline": ["error", { "multiline": true }],
-    "array-element-newline": ["error", { "multiline": true }],
+    "array-element-newline": ["error", { "minItems": 5 }],
     "no-multiple-empty-lines": "warn",
     "no-trailing-spaces": ["error", { "ignoreComments": true }],
     "no-var": "error"
