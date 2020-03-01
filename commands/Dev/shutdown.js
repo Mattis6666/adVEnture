@@ -8,8 +8,9 @@ module.exports = {
     developersOnly: true,
     args: false,
     category: 'Dev',
-    execute(message) {
-        message.reply('Bye, cruel world!')
-            .then(() => message.client.destroy());
+    async execute(message) {
+        await message.reply('Bye, cruel world!');
+        await message.client.destroy();
+        await process.exit();
     }
 };

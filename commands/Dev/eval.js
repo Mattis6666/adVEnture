@@ -5,7 +5,7 @@ module.exports = {
     usage: '',
     aliases: ['debug', 'code'],
     guildonly: false,
-    devonly: true,
+    developersOnly: true,
     args: true,
     modCommand: false,
     category: 'Dev',

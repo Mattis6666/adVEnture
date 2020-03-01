@@ -5,7 +5,7 @@ module.exports = {
     description: 'Lists all commands or info on one command if provided.',
     extended: '',
     usage: '<command name>',
-    aliases: ['command', 'info', 'i'],
+    aliases: ['h', 'info', 'i'],
     guildOnly: false,
     developersOnly: false,
     args: false,
@@ -39,6 +39,8 @@ module.exports = {
         const command = message.client.commands.get(name) || message.client.commands.find(c => c.aliases && c.aliases.includes(name));
         if (!command)
             return message.reply('That\'s not a valid command!');
+        if (command.developersOnly && !config.developers.includes(message.author.id))
+            return;
 
         output
             .setAuthor(command.name, message.author.avatarURL)
