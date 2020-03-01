@@ -56,7 +56,20 @@ function handleError(error) {
   console.error(error);
 }
 function handleMonths(i) {
-  return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][i - 1];
+  return [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ][i - 1];
 }
 
 module.exports = {
@@ -103,11 +116,11 @@ module.exports = {
       if (media.title.native !== 'null' && media.title.native) names.push(media.title.native);
 
       const output = functions.newEmbed()
-        .setTitle(media.title.romaji)
+        .setTitle(media.title.romaji || media.title.english || media.title.english)
         .setThumbnail(media.coverImage.extraLarge)
         .setImage(media.bannerImage)
         .setDescription(`${media.description.replace(/<[^>]*>/gi, '')}\n[More Info can be found here!](${media.siteUrl})`)
-        .addField('Other Names', names.length ? names.join('\n') : '-')
+        .addField('Other Names', names.join('\n') || '-')
         .addField('Genres', media.genres.join(', ') || '-')
         .addField('Status', media.status || '-', true)
         .addField('Average Rating', media.averageScore ? media.averageScore + '%' : '-', true)

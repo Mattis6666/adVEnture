@@ -24,13 +24,21 @@ module.exports = {
         message.reply('You did not provide a valid role. Please run the command again and this time provide a valid role! This can be a mention, its id or its name')
             .then(message => message.delete(3000));
     },
-    getMember(message, args, spot) {
+    getMemberMod(message, args, spot) {
         const memberInput = args[spot];
         let member = message.guild.members.get(memberInput);
         if (!member) member = message.mentions.members.first();
         if (!member) member = message.guild.members.get(memberInput.substring(3, memberInput.length - 1));
         if (!member) member = message.guild.members.some(member => member.user.username.substring(0, memberInput.length).toLowerCase() === memberInput.toLowerCase()) ? 'reactions' : false;
-        return member ? member : false;
+        return member || false;
+    },
+    getMember(message, args, spot) {
+        const memberInput = args[spot];
+        let member = message.guild.members.get(memberInput);
+        if (!member) member = message.mentions.members.first();
+        if (!member) member = message.guild.members.get(memberInput.substring(3, memberInput.length - 1));
+        if (!member) member = message.guild.members.find(member => member.user.username.substring(0, memberInput.length).toLowerCase() === memberInput.toLowerCase()) || false;
+        return member || false;
     },
     noMember(message) {
         message.reply('You did not provide a valid member. Please run the command again and this time provide a valid member! This can be a mention, their id or their name')

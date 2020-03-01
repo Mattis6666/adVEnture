@@ -13,7 +13,7 @@ module.exports = {
     memberPermission: 'BAN_MEMBERS',
     botPermission: '',
     async execute(message, args) {
-        const user = functions.getMember(message, args, 0);
+        const user = functions.getMemberMod(message, args, 0);
         if (!user || user === 'reactions') return functions.noMember(message);
 
         const dbEntry = await db.getUser(user.id);

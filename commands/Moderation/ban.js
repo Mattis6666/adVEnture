@@ -38,7 +38,7 @@ module.exports = {
                 });
         }
 
-        let member = functions.getMember(message, args, 0);
+        let member = functions.getMemberMod(message, args, 0);
         if (!member) return functions.noMember(message);
         if (member !== 'reactions')
             return ban(member);

@@ -18,12 +18,12 @@ module.exports = {
             output = await eval(args.join(' '));
         }
         catch (err) {
-            message.channel.send(`An error occured!\n\`\`\`js\n${err.stack}\`\`\``);
+            message.channel.send(`An error occurred!\n\`\`\`js\n${err.stack}\`\`\``);
         }
         try {
             if (!output) return;
-            const jsonobj = typeof output !== 'object' ? JSON.parse(output) : output;
-            const out = JSON.stringify(jsonobj, null, '\t');
+            const jsonObj = typeof output !== 'object' ? JSON.parse(output) : output;
+            const out = JSON.stringify(jsonObj, null, '\t');
             message.channel.send(`\`\`\`js\n${out.replace(config.token, '[REDACTED]').replace(config.mongoString, '[REDACTED]')}\`\`\``);
         }
         catch (err) {
@@ -31,7 +31,7 @@ module.exports = {
                 message.channel.send(output);
             }
             catch (err) {
-                message.channel.send(`An error occured!\n\`\`\`js\n${err.stack}\`\`\``);
+                message.channel.send(`An error occurred!\n\`\`\`js\n${err.stack}\`\`\``);
             }
         }
     },

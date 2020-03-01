@@ -40,14 +40,12 @@ module.exports = {
         if (!command)
             return message.reply('That\'s not a valid command!');
 
-        const info = [
-            `**Name:** \`${command.name}\``,
-            `**Description:** \`${command.description ? command.description : '-'}\``,
-            `**Extended:** \`${command.extended ? command.extended : '-'}\``,
-            `**Usage:** \`${config.prefix}${command.name}${command.usage ? ' ' + command.usage : ''}\``,
-            `**Aliases:** \`${command.aliases.length ? command.aliases.join(', ') : '-'}\``
-        ];
-        output.setAuthor(message.author.tag, message.author.avatarURL).setDescription(info.join('\n\n'));
+        output
+            .setAuthor(command.name, message.author.avatarURL)
+            .addField('Description', command.description || '-')
+            .addField('Extended', command.extended || '-')
+            .addField('Usage', `\`${config.prefix + command.name}\` ${command.usage || ''}`, true)
+            .addField('Aliases', command.aliases.join(', ') || '-', true);
         message.channel.send(output);
     },
 };

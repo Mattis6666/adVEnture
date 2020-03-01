@@ -13,7 +13,7 @@ module.exports = {
     memberPermission: 'BAN_MEMBERS',
     botPermission: '',
     async execute(message, args) {
-        const member = functions.getMember(message, args, 0);
+        const member = functions.getMemberMod(message, args, 0);
         if (!member || member === 'reactions') return functions.noMember(message);
 
         const mod = message.author.id;

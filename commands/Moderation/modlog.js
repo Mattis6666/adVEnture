@@ -14,7 +14,8 @@ module.exports = {
     botPermission: '',
     async execute(message, args) {
         const user = functions.getMember(message, args, 0);
-        if (!user || user === 'reactions') return functions.noMember(message);
+        if (!user)
+            return functions.noMember(message);
 
         const dbEntry = await db.getUser(user.id);
         if (!dbEntry)

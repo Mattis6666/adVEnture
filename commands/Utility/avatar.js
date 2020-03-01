@@ -14,10 +14,11 @@ module.exports = {
 
         if (args[0]) {
             const member = functions.getMember(message, args, 0);
-            if (!member || member === 'reactions') return functions.noMember(message);
+            if (!member)
+                return functions.noMember(message);
 
-            let username = member.user.username;
-            if (!username.endsWith('s') && !username.endsWith('z') && !username.endsWith('S') && !username.endsWith('Z')) username += '\'s'; else username += '\'';
+            const name = member.user.username.toUpperCase();
+            const username = name.endsWith('Z') || name.endsWith('S') ? member.user.username + "'" : member.user.username + "'s";
 
             if (!member) {
                 output.setDescription('Please use a proper mention if you want to see someone elses avatar.');
