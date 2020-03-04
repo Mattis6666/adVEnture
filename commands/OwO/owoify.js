@@ -12,8 +12,8 @@ module.exports = {
     category: 'OwO',
     memberPermission: '',
     botPermission: '',
-    async execute(message, args, nekos) {
-        const OwO = await owo.OwOify(nekos, args.join(' '));
+    async execute(message, args) {
+        const OwO = await owo.OwOify(args.join(' '));
         const output = owo.embed(message.author)
             .setDescription(OwO);
         message.channel.send(output);

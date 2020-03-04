@@ -13,32 +13,26 @@ module.exports = {
         console.error(err);
     },
     getRole(message, args, spot) {
-        const roleInput = args[spot];
-        let role = message.guild.roles.get(roleInput);
-        if (!role) role = message.mentions.roles.first();
-        if (!role) role = message.guild.roles.get(roleInput.substring(3, roleInput.length - 1));
-        if (!role) role = message.guild.roles.find(role => role.name.substring(0, roleInput.length).toLowerCase() === roleInput.toLowerCase());
-        return role ? role : false;
+        return message.mentions.roles.first()
+            || message.guild.roles.get(args[spot].replace(/[^0-9]/gi, ''))
+            || message.guild.roles.find(role => role.name.substring(0, args[spot].length).toLowerCase() === args[spot].toLowerCase())
+            || false;
     },
     noRole(message) {
         message.reply('You did not provide a valid role. Please run the command again and this time provide a valid role! This can be a mention, its id or its name')
             .then(message => message.delete(3000));
     },
     getMemberMod(message, args, spot) {
-        const memberInput = args[spot];
-        let member = message.guild.members.get(memberInput);
-        if (!member) member = message.mentions.members.first();
-        if (!member) member = message.guild.members.get(memberInput.substring(3, memberInput.length - 1));
-        if (!member) member = message.guild.members.some(member => member.user.username.substring(0, memberInput.length).toLowerCase() === memberInput.toLowerCase()) ? 'reactions' : false;
+        let member = message.mentions.members.first()
+            || message.guild.members.get(args[spot].replace(/[^0-9]/gi, ''));
+        if (!member) member = message.guild.members.some(member => member.user.username.substring(0, args[spot].length).toLowerCase() === args[spot].toLowerCase()) ? 'reactions' : false;
         return member || false;
     },
     getMember(message, args, spot) {
-        const memberInput = args[spot];
-        let member = message.guild.members.get(memberInput);
-        if (!member) member = message.mentions.members.first();
-        if (!member) member = message.guild.members.get(memberInput.substring(3, memberInput.length - 1));
-        if (!member) member = message.guild.members.find(member => member.user.username.substring(0, memberInput.length).toLowerCase() === memberInput.toLowerCase()) || false;
-        return member || false;
+        return message.mentions.members.first()
+            || message.guild.members.get(args[spot].replace(/[^0-9]/gi, ''))
+            || message.guild.members.find(member => member.user.username.substring(0, args[spot].length).toLowerCase() === args[spot].toLowerCase())
+            || false;
     },
     noMember(message) {
         message.reply('You did not provide a valid member. Please run the command again and this time provide a valid member! This can be a mention, their id or their name')

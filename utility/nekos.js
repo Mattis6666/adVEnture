@@ -1,8 +1,11 @@
 const functions = require('./functions.js');
+const nekoClient = require('nekos.life');
+const { sfw } = new nekoClient();
 
 module.exports = {
-    async OwOify(nekos, text) {
-        const out = await nekos.OwOify({
+    async OwOify(text) {
+
+        const out = await sfw.OwOify({
             text: text
         });
         return out.owo;
@@ -10,16 +13,15 @@ module.exports = {
     embed(user) {
         return functions.newEmbed().setAuthor(user.tag, user.displayAvatarURL);
     },
-    async getImage(nekos, type) {
-        const out = await nekos[type]();
+    async getImage(type) {
+        const out = await sfw[type]();
         return out.url;
     },
     getMember(message, args, spot) {
-        const memberInput = args[spot];
-        let member = message.guild.members.get(memberInput);
-        if (!member) member = message.mentions.members.first();
-        if (!member) member = message.guild.members.get(memberInput.substring(3, memberInput.length - 1));
-        if (!member) member = message.guild.members.find(member => member.user.username.substring(0, memberInput.length).toLowerCase() === memberInput.toLowerCase()) || false;
-        return member || false;
+        return message.mentions.members.first()
+            || message.guild.members.get(args[spot].replace(/[^0-9]/gi, ''))
+            || message.guild.members.find(member => member.user.username.substring(0, args[spot].length).toLowerCase() === args[spot].toLowerCase())
+            || false;
     },
+    client: sfw
 };

@@ -15,17 +15,15 @@ module.exports = {
                 hours = (ms / (1000 * 60 * 60)).toFixed(1),
                 days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
             if (seconds < 60)
-                return seconds + ' Sec';
+                return seconds + ' sec';
             else if (minutes < 60)
-                return minutes + ' Min';
+                return minutes + ' min';
             else if (hours < 24)
-                return hours + ' Hrs';
+                return hours + ' hrs';
             else
-                return days + ' Days';
+                return days + ' days';
         }
 
         message.channel.send(`⏱️ **__Uptime:__**\n**Node:** *${time(process.uptime() * 1000)}*\n**Client:** *${time(message.client.uptime)}*`);
-        console.log(process.uptime());
-        console.log(message.client.uptime);
     }
 };

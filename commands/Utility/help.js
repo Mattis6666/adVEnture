@@ -38,7 +38,7 @@ module.exports = {
         const name = args[0].toLowerCase();
         const command = message.client.commands.get(name) || message.client.commands.find(c => c.aliases && c.aliases.includes(name));
         if (!command)
-            return message.reply('That\'s not a valid command!');
+            return functions.errorMessage(message, "That's not a valid command!");
         if (command.developersOnly && !config.developers.includes(message.author.id))
             return;
 
@@ -46,7 +46,7 @@ module.exports = {
             .setAuthor(command.name, message.author.avatarURL)
             .addField('Description', command.description || '-')
             .addField('Extended', command.extended || '-')
-            .addField('Usage', `\`${config.prefix + command.name}\` ${command.usage || ''}`, true)
+            .addField('Usage', `\`${config.prefix + command.name} ${command.usage || ''}\``, true)
             .addField('Aliases', command.aliases.join(', ') || '-', true);
         message.channel.send(output);
     },

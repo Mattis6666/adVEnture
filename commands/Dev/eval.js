@@ -12,6 +12,7 @@ module.exports = {
     async execute(message, args) {
         const db = require('../../utility/mongo.js');
         const functions = require('../../utility/functions.js');
+        const nekos = require('../../utility/nekos.js');
         const config = require('config');
         let output;
         try {
@@ -36,3 +37,4 @@ module.exports = {
         }
     },
 };
+

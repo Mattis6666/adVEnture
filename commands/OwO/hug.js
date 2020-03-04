@@ -11,8 +11,8 @@ module.exports = {
     category: 'OwO',
     memberPermission: '',
     botPermission: '',
-    async execute(message, args, nekos) {
-        const image = await owo.getImage(nekos, 'hug');
+    async execute(message, args) {
+        const image = await owo.getImage('hug');
         const output = owo.embed(message.author)
             .setImage(image);
         if (args.length) {

@@ -4,10 +4,6 @@ const Discord = require('discord.js');
 const config = require('config');
 const functions = require('./utility/functions');
 
-// IMPORT & INITIATE NEKOS.LIFE
-const nekoClient = require('nekos.life');
-const { sfw } = new nekoClient();
-
 // INITIATE BOT CLIENT, COMMANDS
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -69,7 +65,7 @@ client.on('message', message => {
         return functions.errorMessage(message, `Missing input. Please refer to the \`${config.prefix}help ${command.name}\` page.`);
 
     try {
-        command.execute(message, args, sfw);
+        command.execute(message, args);
     } catch (error) {
         functions.logError(error, client, message);
     }
@@ -108,5 +104,3 @@ if (config.token === 'heroku')
     client.login(process.env.BOT_TOKEN);
 else
     client.login(config.token);
-
-module.exports = sfw;

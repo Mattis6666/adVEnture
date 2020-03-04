@@ -16,14 +16,13 @@ module.exports = {
         const member = functions.getMemberMod(message, args, 0);
         if (!member || member === 'reactions') return functions.noMember(message);
 
-        const mod = message.author.id;
-        const reasonStr = args.splice(1);
-        const reason = reasonStr.length ? reasonStr.join(' ') : 'None';
+        const reason = args[1] ? args.splice(1).join(' ') : 'None';
+
         const dbEntry = await db.getUser(member.id);
         if (!dbEntry)
             return;
         const count = dbEntry.warns.length;
-        await db.createWarn(member.id, reason, mod, message.author.tag, new Date());
+        await db.createWarn(member.id, reason, message.author.id, message.author.tag, new Date());
         const output = functions.newEmbed()
             .setTitle('Warn')
             .setDescription(`${member} has successfully been warned.`)
