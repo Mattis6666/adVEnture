@@ -16,15 +16,19 @@ module.exports = {
         const success = functions.newEmbed()
             .setAuthor('Unban')
             .setDescription('User has successfully been unbanned!');
-        message.guild.unban(args[0])
+        message.guild.members.unban(args[0])
             .then(user => {
                 success
-                    .addField('User', user.tag, false)
-                    .addField('Moderator', message.author.tag, false)
-                    .addField('Reason', args[1] ? args.slice(1).join(' ') : '-', false)
-                    .setThumbnail(user.displayAvatarURL);
+                    .addFields(
+                        [
+                            { name: 'User', value: user.tag },
+                            { name: 'Moderator', value: message.author.tag },
+                            { name: 'Reason', value: args[1] ? args.slice(1).join(' ') : '-' }
+                        ]
+                    )
+                    .setThumbnail(user.displayAvatarURL({ size: 256, dynamic: true }));
                 message.channel.send(success);
-                message.client.channels.get(config.modLogChannel).send(success);
+                message.client.channels.cache.get(config.modLogChannel).send(success);
             })
             .catch(() => {
                 return functions.errorMessage(message, "Oops, that didn't work! Double check your input!");

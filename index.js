@@ -23,12 +23,11 @@ client.once('ready', () => {
             type: 'PLAYING',
         }
     });
-
-    console.log(`Successfully logged in as ${client.user.username} - ${client.user.id}\nServing ${client.guilds.size} guilds\nPrefix: ${config.prefix}`);
+    console.log(`Successfully logged in as ${client.user.username} - ${client.user.id}\nServing ${client.guilds.cache.size} guilds\nPrefix: ${config.prefix}`);
     if (config.token === 'heroku') client.channels.get(config.errorChannel).send('<@265560538937819137> I successfully rebooted!');
 
     Object.keys(config.reactionRoles).forEach(message => {
-        client.channels.get(config.reactionRoles[message].channel).fetchMessage(message).then(msg => msg.react('✅'));
+        client.channels.cache.get(config.reactionRoles[message].channel).messages.fetch(message).then(msg => msg.react('✅'));
     });
 });
 
@@ -40,7 +39,7 @@ client.on('message', message => {
         return;
     if (config.blockedChannels.includes(message.channel.id))
         return;
-    if (message.isMentioned(client.user))
+    if (message.mentions.has(client.user))
         message.channel.send(`**Prefix:** ${config.prefix}\nFor a list of commands, type \`${config.prefix}help\``);
     if (message.guild)
         if (!message.channel.permissionsFor(message.member).has('MANAGE_MESSAGES')) functions.filterMessages(message);
@@ -77,16 +76,19 @@ client.on('messageReactionAdd', (reaction, user) => {
     if (!Object.keys(config.reactionRoles).includes(messageID))
         return;
     if (user !== client.user)
-        reaction.remove(user);
-    const role = reaction.message.guild.roles.get(config.reactionRoles[messageID].role);
-    if (!role) return;
-    const member = reaction.message.guild.members.get(user.id);
-    if (member.roles.has(role.id)) {
-        member.removeRole(role);
+        reaction.users.remove(user);
+    const role = reaction.message.guild.roles.cache.get(config.reactionRoles[messageID].role);
+    if (!role)
+        return;
+    const member = reaction.message.guild.members.cache.get(user.id);
+    if (!member || member.user.bot)
+        return;
+    if (member.roles.cache.has(role.id)) {
+        member.roles.remove(role);
         user.send(`I successfully removed the role \`${role.name}\` from you.`).catch(() => { return; });
     }
     else {
-        member.addRole(role);
+        member.roles.add(role);
         user.send(`I successfully added the role \`${role.name}\` to you.`).catch(() => { return; });
     }
 });

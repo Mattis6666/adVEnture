@@ -12,7 +12,6 @@ module.exports = {
     category: 'Utility',
     execute(message, args) {
         const output = functions.newEmbed().setAuthor('Help Menu', message.author.avatarURL);
-
         if (!args.length) {
             const commands = {
                 Utility: [],
@@ -27,10 +26,14 @@ module.exports = {
             });
             output
                 .setTitle("Here's a list of all available commands!")
-                .addField('Utility Commands', commands.Utility.join('\n'))
-                .addField('Moderator Commands', commands.Mod.join('\n'))
-                .addField('Miscellaneous Commands', commands.Misc.join('\n'))
-                .addField('OwO Commands', commands.OwO.join('\n'))
+                .addFields(
+                    [
+                        { name: 'Utility Commands', value: commands.Utility.join('\n') },
+                        { name: 'Moderator Commands', value: commands.Mod.join('\n') },
+                        { name: 'Miscellaneous Commands', value: commands.Misc.join('\n') },
+                        { name: 'OwO Commands', value: commands.OwO.join('\n') }
+                    ]
+                )
                 .setFooter(`Type ${config.prefix}help [command name] to get info on a specific command.`);
             return message.channel.send(output);
         }
@@ -43,11 +46,15 @@ module.exports = {
             return;
 
         output
-            .setAuthor(command.name, message.author.avatarURL)
-            .addField('Description', command.description || '-')
-            .addField('Extended', command.extended || '-')
-            .addField('Usage', `\`${config.prefix + command.name} ${command.usage || ''}\``, true)
-            .addField('Aliases', command.aliases.join(', ') || '-', true);
+            .setAuthor(command.name.toUpperCase(), message.author.avatarURL)
+            .addFields(
+                [
+                    { name: 'Description', value: command.description || '-' },
+                    { name: 'Extended', value: command.extended || '-' },
+                    { name: 'Usage', value: `\`${config.prefix + command.name} ${command.usage || ''}\``, inline: true },
+                    { name: 'Aliases', value: command.aliases.join(', ') || '-', inline: true },
+                ]
+            );
         message.channel.send(output);
     },
 };

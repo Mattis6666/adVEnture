@@ -23,14 +23,17 @@ module.exports = {
 
         const output = functions.newEmbed()
             .setTitle(`Mod Logs for ${user.user.tag}`)
-            .setThumbnail(user.user.displayAvatarUrl);
+            .setThumbnail(user.user.displayAvatarURL({ size: 256, dynamic: true }));
 
         if (!dbEntry.warns.length)
             return message.reply(`Good news! ${user.user.tag} does not have any warns.`);
 
         dbEntry.warns.forEach(entry => {
-            const mod = message.guild.members.get(entry.moderator) || entry.moderatorName;
-            output.addField(`Warn ${dbEntry.warns.indexOf(entry) + 1}`, `**Moderator:** ${mod}\n**Date:** ${entry.date.toString().substring(0, 24) + ' CEST'}\n**Reason:** \`${entry.reason}\``);
+            const mod = message.guild.members.cache.get(entry.moderator) || entry.moderatorName;
+            output.addField(
+                `Warn ${dbEntry.warns.indexOf(entry) + 1}`,
+                `**Moderator:** ${mod}\n**Date:** ${entry.date.toString().substring(0, 24) + ' CEST'}\n**Reason:** \`${entry.reason}\``
+            );
         });
 
         message.channel.send(output);

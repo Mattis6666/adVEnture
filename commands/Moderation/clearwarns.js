@@ -23,15 +23,17 @@ module.exports = {
             dbEntry.warns.pop();
         dbEntry.save();
 
-        const reasonStr = args.splice(1);
-        const reason = reasonStr.length ? reasonStr.join(' ') : 'None';
         const output = functions.newEmbed()
             .setTitle('Warn Clear')
             .setDescription(`All warns for ${user} have successfully been cleared.`)
-            .addField('Member', user.user.tag)
-            .addField('Moderator', message.author.tag)
-            .addField('Reason', reason)
-            .setThumbnail(user.user.displayAvatarUrl);
+            .addFields(
+                [
+                    { name: 'User', value: user.tag },
+                    { name: 'Moderator', value: message.author.tag },
+                    { name: 'Reason', value: args[1] ? args.slice(1).join(' ') : '-' }
+                ]
+            )
+            .setThumbnail(user.user.displayAvatarURL({ size: 256, dynamic: true }));
 
         message.channel.send(output);
         functions.modLog(message, output);

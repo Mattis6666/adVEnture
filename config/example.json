@@ -5,6 +5,7 @@
   "developers": [""],
   "errorChannel": "",
   "modLogChannel": "",
+  "mailChannel": "",
   "imageStorage": "",
   "blockedChannels": [""],
   "bannedWords": [""],

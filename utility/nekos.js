@@ -11,7 +11,7 @@ module.exports = {
         return out.owo;
     },
     embed(user) {
-        return functions.newEmbed().setAuthor(user.tag, user.displayAvatarURL);
+        return functions.newEmbed().setAuthor(user.tag, user.displayAvatarURL({ size: 256, dynamic: true }));
     },
     async getImage(type) {
         const out = await sfw[type]();
@@ -19,8 +19,8 @@ module.exports = {
     },
     getMember(message, args, spot) {
         return message.mentions.members.first()
-            || message.guild.members.get(args[spot].replace(/[^0-9]/gi, ''))
-            || message.guild.members.find(member => member.user.username.substring(0, args[spot].length).toLowerCase() === args[spot].toLowerCase())
+            || message.guild.members.cache.get(args[spot].replace(/[^0-9]/gi, ''))
+            || message.guild.members.cache.find(member => member.user.username.toLowerCase().startsWith(args[spot].toLowerCase()))
             || false;
     },
     client: sfw

@@ -26,10 +26,14 @@ module.exports = {
         const output = functions.newEmbed()
             .setTitle('Warn')
             .setDescription(`${member} has successfully been warned.`)
-            .addField('Member', member.user.tag)
-            .addField('Moderator', message.author.tag)
-            .addField('Reason', reason)
-            .setThumbnail(member.user.displayAvatarUrl)
+            .addFields(
+                [
+                    { name: 'Member', value: member.user.tag },
+                    { name: 'Moderator', value: message.author.tag },
+                    { name: 'Reason', value: reason }
+                ]
+            )
+            .setThumbnail(member.user.displayAvatarURL({ size: 256, dynamic: true }))
             .setFooter(count ? `They now have ${count + 1} warns.` : 'This is their first warn.');
         await message.channel.send(output);
         functions.modLog(message, output);

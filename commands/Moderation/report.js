@@ -14,11 +14,12 @@ module.exports = {
     botPermission: '',
     async execute(message, args) {
         const output = functions.newEmbed()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL)
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({ size: 256, dynamic: true }))
             .setDescription(args.join(' '))
             .setTitle('User Report');
 
-        const modChannel = message.client.channels.get(config.mailChannel);
+        const modChannel = message.client.channels.cache.get(config.mailChannel);
+
         if (message.attachments.size) {
             const image = await functions.imageStore(message, message.attachments.first().url);
             output.setImage(image);
@@ -29,9 +30,12 @@ module.exports = {
             return modChannel.send(output);
         }
 
-        output
-            .addField('Channel', message.channel)
-            .addField('Message', `[Click me to jump to the message.](${message.url})`);
+        output.addFields(
+            [
+                { name: 'Channel', value: message.channel },
+                { name: 'Message', value: `[Click me to jump to the message.](${message.url})` }
+            ]
+        );
         functions.errorMessage(message, 'Your message has successfully been sent!');
         modChannel.send(output);
     }
