@@ -30,8 +30,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.statics.getUser = async function (userID) {
-    const output = await this.findOne({ userID: userID }) || await this.create({ userID: userID });
-    return output;
+    return await this.findOne({ userID: userID }) || await this.create({ userID: userID });
 };
 userSchema.statics.createWarn = async function (userID, reason, mod, modTag, date) {
     const userEntry = await this.findOne({ userID: userID }) || await this.create({ userID: userID });

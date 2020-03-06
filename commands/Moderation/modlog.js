@@ -5,7 +5,7 @@ module.exports = {
     description: 'Views the modlog of the user.',
     extended: '',
     usage: '[@User/User ID]',
-    aliases: ['modlog', 'warnlog'],
+    aliases: ['modlog', 'warnlog', 'ml'],
     guildonly: true,
     developersOnly: false,
     args: true,
@@ -29,7 +29,7 @@ module.exports = {
             return message.reply(`Good news! ${user.user.tag} does not have any warns.`);
 
         dbEntry.warns.forEach(entry => {
-            const mod = message.guild.members.cache.get(entry.moderator) || entry.moderatorName;
+            const mod = message.guild.members.cache.get(entry.moderator) || entry.moderatorTag;
             output.addField(
                 `Warn ${dbEntry.warns.indexOf(entry) + 1}`,
                 `**Moderator:** ${mod}\n**Date:** ${entry.date.toString().substring(0, 24) + ' CEST'}\n**Reason:** \`${entry.reason}\``

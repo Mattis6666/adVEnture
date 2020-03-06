@@ -5,7 +5,15 @@ const config = require('config');
 const functions = require('./utility/functions');
 
 // INITIATE BOT CLIENT, COMMANDS
-const client = new Discord.Client();
+const client = new Discord.Client({
+    disableMentions: 'everyone',
+    presence: {
+        activity: {
+            name: `${config.prefix}help`,
+            type: 'LISTENING',
+        }
+    }
+});
 client.commands = new Discord.Collection();
 fs.readdirSync('./commands').forEach(folder => {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
@@ -17,12 +25,6 @@ fs.readdirSync('./commands').forEach(folder => {
 
 // ACTIONS DONE ON STARTUP
 client.once('ready', () => {
-    client.user.setPresence({
-        game: {
-            name: `${config.prefix}help`,
-            type: 'PLAYING',
-        }
-    });
     console.log(`Successfully logged in as ${client.user.username} - ${client.user.id}\nServing ${client.guilds.cache.size} guilds\nPrefix: ${config.prefix}`);
     if (config.token === 'heroku') client.channels.cache.get(config.errorChannel).send('<@265560538937819137> I successfully rebooted!');
 
@@ -102,7 +104,4 @@ client.on('warn', warn => {
 });
 
 // CLIENT LOGIN
-if (config.token === 'heroku')
-    client.login(process.env.BOT_TOKEN);
-else
-    client.login(config.token);
+client.login(process.env.BOT_TOKEN || config.token);
