@@ -24,7 +24,7 @@ client.once('ready', () => {
         }
     });
     console.log(`Successfully logged in as ${client.user.username} - ${client.user.id}\nServing ${client.guilds.cache.size} guilds\nPrefix: ${config.prefix}`);
-    if (config.token === 'heroku') client.channels.get(config.errorChannel).send('<@265560538937819137> I successfully rebooted!');
+    if (config.token === 'heroku') client.channels.cache.get(config.errorChannel).send('<@265560538937819137> I successfully rebooted!');
 
     Object.keys(config.reactionRoles).forEach(message => {
         client.channels.cache.get(config.reactionRoles[message].channel).messages.fetch(message).then(msg => msg.react('✅'));
