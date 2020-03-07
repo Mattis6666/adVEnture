@@ -1,12 +1,13 @@
 {
   "name": "adventure-bot",
   "version": "2.0.0",
-  "description": "Remake of Practice-Bot. Should be way better and cleaner.",
+  "description": "Better than Dyno no cap.",
   "main": "index.js",
   "scripts": {
     "start": "export NODE_ENV=production && node index.js",
     "dev": "export NODE_ENV=development && node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js --fix"
   },
   "author": "VenNeptury",
   "license": "ISC",
@@ -18,6 +19,7 @@
     "fs": "^0.0.1-security",
     "mongoose": "^5.9.2",
     "nekos.life": "^2.0.5",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "tictactoejs": "^1.0.3"
   }
 }

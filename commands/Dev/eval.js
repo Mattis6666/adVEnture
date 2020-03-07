@@ -13,6 +13,7 @@ module.exports = {
         const db = require('../../utility/mongo.js');
         const functions = require('../../utility/functions.js');
         const nekos = require('../../utility/nekos.js');
+        const ttt = require('../../utility/tictactoe.js');
         const config = require('config');
         let output;
         try {

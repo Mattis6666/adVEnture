@@ -17,7 +17,6 @@
     "quotes": ["error", "single", { "avoidEscape": true }],
     "no-unreachable": "error",
     "curly": ["error", "multi-or-nest"],
-    "default-case": "warn",
     "eqeqeq": "warn",
     "no-unused-vars": "error",
     "no-use-before-define": "error",
