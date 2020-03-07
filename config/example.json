@@ -1,6 +1,6 @@
 {
   "token": "",
-  "mongoString": "mongodb+srv://NAME:PASSWORD.@mahruan-s93pu.mongodb.net/test?retryWrites=true&w=majority",
+  "mongoString": "",
   "prefix": "",
   "developers": [""],
   "errorChannel": "",
@@ -11,8 +11,8 @@
   "bannedWords": [""],
   "reactionRoles": {
     "messageID": {
-      "role": "roleID",
-      "channel": "channelID"
+      "role": "",
+      "channel": ""
     }
   }
 }
