@@ -8,7 +8,7 @@
   "mailChannel": "678610158271725589",
   "imageStorage": "678610450727829507",
   "blockedChannels": ["678610106254098432"],
-  "bannedWords": ["foo", "bar"],
+  "bannedWords": [],
   "reactionRoles": {
     "678609760421150731": {
       "role": "678609098358521899",
