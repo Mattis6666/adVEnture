@@ -81,7 +81,7 @@ module.exports = {
                     msg.edit(menu);
                     break;
                 case '➡️':
-                    if (i - 1 >= members.length)
+                    if (i >= members.length - 1)
                         return;
                     i++;
                     menu.setTitle(`Selected user: ${members[i][0]}`).setThumbnail(members[i][1]).setFooter(`${i + 1}/${members.length}`);
