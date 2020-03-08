@@ -10,7 +10,7 @@ const client = new Discord.Client({
     presence: {
         activity: {
             name: `${config.prefix}help`,
-            type: 'LISTENING',
+            type: 'LISTENING'
         }
     }
 });
@@ -25,11 +25,17 @@ fs.readdirSync('./commands').forEach(folder => {
 
 // ACTIONS DONE ON STARTUP
 client.once('ready', () => {
+    console.log('💩');
     console.log(`Successfully logged in as ${client.user.username} - ${client.user.id}\nServing ${client.guilds.cache.size} guilds\nPrefix: ${config.prefix}`);
     if (config.token === 'heroku') client.channels.cache.get(config.errorChannel).send('<@265560538937819137> I successfully rebooted!');
 
-    Object.keys(config.reactionRoles).forEach(message => {
-        client.channels.cache.get(config.reactionRoles[message].channel).messages.fetch(message).then(msg => msg.react('✅'));
+    Object.keys(config.reactionRoles).forEach(chan => {
+        const channel = client.channels.cache.get(chan);
+        config.reactionRoles[chan].forEach(message => {
+            message[Object.keys(message)].forEach(message => {
+                channel.messages.fetch(message);
+            });
+        });
     });
 });
 
@@ -74,16 +80,22 @@ client.on('message', message => {
 
 // REACTION ROLES
 client.on('messageReactionAdd', (reaction, user) => {
-    const messageID = reaction.message.id;
-    if (!Object.keys(config.reactionRoles).includes(messageID))
+    const channel = config.reactionRoles[reaction.message.channel.id];
+    if (!channel)
         return;
     if (user !== client.user)
         reaction.users.remove(user);
-    const role = reaction.message.guild.roles.cache.get(config.reactionRoles[messageID].role);
+    const messages = channel.filter(chan => Object.keys(chan).includes(reaction.message.id))[0][reaction.message.id];
+    if (!messages)
+        return;
+    const emoji = messages.filter(arr => arr[0] === reaction.emoji.id)[0];
+    if (!emoji)
+        return;
+    const role = reaction.message.guild.roles.cache.get(messages.filter(arr => arr[0] === reaction.emoji.id)[0][1]);
     if (!role)
         return;
     const member = reaction.message.guild.members.cache.get(user.id);
-    if (!member || member.user.bot)
+    if (!member || user.bot)
         return;
     if (member.roles.cache.has(role.id)) {
         member.roles.remove(role);
@@ -105,3 +117,5 @@ client.on('warn', warn => {
 
 // CLIENT LOGIN
 client.login(process.env.BOT_TOKEN || config.token);
+
+module.exports = client;
